@@ -1,5 +1,3 @@
-Thought for 1s# Aby's Abyss
-
 A personal blog crafted with love for Aby, my muse and inspiration. This digital sanctuary is where poetry, art, videos, and thoughts come together in a beautiful pink-and-white aesthetic adorned with delicate flowers.
 
 ---
