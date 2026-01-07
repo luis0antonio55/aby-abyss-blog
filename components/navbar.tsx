@@ -15,7 +15,7 @@ export function Navbar() {
     { href: "/", label: "Inicio" },
     { href: "/sobre-mi", label: "Sobre Mí" },
     { href: "/contacto", label: "Contacto" },
-    { href: "/login", label: "Login" },
+    { href: "/login", label: "Ingresar" },
   ];
 
   return (
