@@ -111,4 +111,4 @@ Made with love. Use it however you wish.
 
 *"Solo una chica que hace lo que hace. Desde psicología a poesía y arte digital... Y otras cositas. Que la ternura rebose del imaginario y nos ahogue con su dulzura."*
 
-— Aby's Abyss
+— Abigail Rosales Cervantes
