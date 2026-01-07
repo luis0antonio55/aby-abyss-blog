@@ -8,7 +8,7 @@ import { Footer } from "@/components/footer"
 import { FlowersBackground } from "@/components/flowers-background"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, BookOpen, ImageIcon, Video, FileText } from "lucide-react"
+import { ArrowLeft, BookOpen, ImageIcon, Video, FileText, Heart } from "lucide-react"
 import Link from "next/link"
 import { notFound, useParams } from "next/navigation"
 import type { Post, PostType } from "@/lib/types"
@@ -40,6 +40,8 @@ export default function PostPage() {
   const id = params.id as string
   const [post, setPost] = useState<Post | null>(null)
   const [loading, setLoading] = useState(true)
+  const [likes, setLikes] = useState(0)
+  const [hasLiked, setHasLiked] = useState(false)
 
   useEffect(() => {
     async function fetchPost() {
@@ -47,10 +49,40 @@ export default function PostPage() {
       const { data } = await supabase.from("posts").select("*").eq("id", id).eq("published", true).single()
 
       setPost(data as Post | null)
+      if (data) {
+        setLikes(data.likes || 0)
+        const likedPosts = JSON.parse(localStorage.getItem("liked_posts") || "[]")
+        setHasLiked(likedPosts.includes(data.id))
+      }
       setLoading(false)
     }
     fetchPost()
   }, [id])
+
+  const handleLike = async () => {
+    if (!post) return
+
+    const newHasLiked = !hasLiked
+    setHasLiked(newHasLiked)
+    setLikes((prev) => prev + (newHasLiked ? 1 : -1))
+
+    const supabase = createClient()
+    const { error } = await supabase.rpc(newHasLiked ? "increment_likes" : "decrement_likes", { post_id: post.id })
+
+    if (error) {
+      console.error("Error updating likes:", error)
+      setHasLiked(!newHasLiked)
+      setLikes((prev) => prev + (newHasLiked ? -1 : 1))
+      return
+    }
+
+    const likedPosts = JSON.parse(localStorage.getItem("liked_posts") || "[]")
+    if (newHasLiked) {
+      localStorage.setItem("liked_posts", JSON.stringify([...likedPosts, post.id]))
+    } else {
+      localStorage.setItem("liked_posts", JSON.stringify(likedPosts.filter((id: string) => id !== post.id)))
+    }
+  }
 
   if (loading) {
     return (
@@ -133,6 +165,22 @@ export default function PostPage() {
               </p>
             </div>
           )}
+
+          <div className="mt-8 flex justify-center">
+            <Button
+              variant="outline"
+              size="lg"
+              className={`gap-2 rounded-full border-2 transition-all duration-300 ${
+                hasLiked
+                  ? "border-primary bg-primary/10 text-primary hover:bg-primary/20"
+                  : "border-muted-foreground/30 hover:border-primary hover:text-primary"
+              }`}
+              onClick={handleLike}
+            >
+              <Heart className={`h-6 w-6 transition-all ${hasLiked ? "fill-primary scale-110" : "scale-100"}`} />
+              <span className="text-lg font-medium">{likes}</span>
+            </Button>
+          </div>
         </article>
       </main>
       <Footer />

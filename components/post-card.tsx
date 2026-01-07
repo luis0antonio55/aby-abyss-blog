@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import type { Post } from "@/lib/types"
-import { BookOpen, ImageIcon, Video, FileText, Play } from "lucide-react"
+import { BookOpen, ImageIcon, Video, FileText, Play, Heart } from "lucide-react"
 
 const typeIcons = {
   poem: BookOpen,
@@ -78,6 +78,14 @@ export function PostCard({ post }: PostCardProps) {
                 alt={post.title}
                 className="h-full w-full object-cover transition-transform group-hover:scale-105"
               />
+            ) : post.media_url && !getYouTubeId(post.media_url) ? (
+              <video
+                src={post.media_url}
+                className="h-full w-full object-cover"
+                muted
+                playsInline
+                preload="metadata"
+              />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-primary/5">
                 <Video className="h-10 w-10 text-primary/30 sm:h-12 sm:w-12" />
@@ -111,6 +119,12 @@ export function PostCard({ post }: PostCardProps) {
               {post.content}
             </p>
           )}
+          <div className="flex justify-end mt-2 sm:mt-4">
+             <div className="flex items-center gap-1 text-primary/80">
+                <Heart className="h-4 w-4" />
+                <span className="text-xs font-medium sm:text-sm">{post.likes || 0}</span>
+             </div>
+          </div>
         </CardContent>
       </Card>
     </Link>

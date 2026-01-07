@@ -187,12 +187,29 @@ export function AdminDashboard({ user, initialPosts }: AdminDashboardProps) {
                 day: "numeric",
               })
 
-              const thumbnailImage = post.thumbnail_url || post.media_url
+              const isYouTube = (url: string) => {
+                return url.includes("youtube.com") || url.includes("youtu.be")
+              }
+
+              const getYouTubeId = (url: string) => {
+                const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?\s]+)/)
+                return match ? match[1] : null
+              }
+
+              let thumbnailImage = post.thumbnail_url
+
+              if (!thumbnailImage && post.type === "video" && post.media_url && isYouTube(post.media_url)) {
+                 const videoId = getYouTubeId(post.media_url)
+                 if (videoId) thumbnailImage = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+              } else if (!thumbnailImage && post.type === "art") {
+                thumbnailImage = post.media_url
+              }
+              // Si es video mp4 y no tiene thumbnail, thumbnailImage seguirá siendo null y mostrará el icono por defecto
 
               return (
                 <Card key={post.id} className="border-primary/10 bg-card/80">
                   <CardContent className="flex items-center gap-3 p-3 sm:gap-4 sm:p-4">
-                    {thumbnailImage && (post.type === "art" || post.type === "video") ? (
+                    {thumbnailImage ? (
                       <div className="h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg bg-muted sm:h-16 sm:w-16">
                         <img src={thumbnailImage || "/placeholder.svg"} alt="" className="h-full w-full object-cover" />
                       </div>

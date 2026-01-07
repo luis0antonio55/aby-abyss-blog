@@ -13,4 +13,5 @@ export interface Post {
   user_id: string
   title_en: string | null
   content_en: string | null
+  likes: number
 }

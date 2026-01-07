@@ -52,7 +52,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${patrickHand.variable} ${cormorant.variable} ${geistMono.variable} font-sans antialiased`}>
+      <body
+        suppressHydrationWarning
+        className={`${patrickHand.variable} ${cormorant.variable} ${geistMono.variable} font-sans antialiased`}
+      >
         {children}
         <Analytics />
       </body>

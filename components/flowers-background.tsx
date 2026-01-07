@@ -31,7 +31,7 @@ export function FlowersBackground() {
         <circle cx="100" cy="85" r="12" fill="#fda4af" />
       </svg>
 
-      {/* Flores inferiores izquierda */}
+      
       <svg
         className="absolute -left-10 bottom-10 h-72 w-72 opacity-20"
         viewBox="0 0 200 200"
