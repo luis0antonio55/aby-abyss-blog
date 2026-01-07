@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Thought for 1s# Aby's Abyss
+
+A personal blog crafted with love for Aby, my muse and inspiration. This digital sanctuary is where poetry, art, videos, and thoughts come together in a beautiful pink-and-white aesthetic adorned with delicate flowers.
+
+---
+
+## For You, Aby
+
+This space is yours to fill with everything that makes your soul shine. Your poems, your art, your videos, your thoughts — all gathered here in your own corner of the internet. May this digital abyss overflow with the beauty you create.
+
+With all my love.
+
+---
+
+## Features
+
+- **Beautiful Design**: Soft pink and white color palette with decorative flowers
+- **Multiple Content Types**: Support for poems, art, videos, and text posts
+- **Admin Dashboard**: Intuitive panel to create, edit, and manage your posts
+- **Video Support**: YouTube video embedding with custom thumbnails
+- **Responsive Design**: Looks great on mobile, tablet, and desktop
+- **Image Uploads**: Upload your artwork and photos directly
+
+
+---
+
+## Pages
+
+| Page | Description
+|-----|-----
+| Home | Gallery of all published posts
+| About Me | Your personal introduction
+| Contact | YouTube channel and email
+| Login | Admin access
+| Admin | Dashboard to manage all content
+
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### 1. Environment Variables
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Create a `.env.local` file in the root of your project:
+
+```plaintext
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can find these values in your Supabase dashboard under **Settings > API**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2. Database Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the following SQL scripts in order from the `scripts` folder:
 
-## Learn More
+1. `001-create-tables.sql` - Creates the posts table
+2. `002-add-translation-fields.sql` - Adds translation fields (optional)
+3. `003-add-thumbnail-field.sql` - Adds custom thumbnail support for videos
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Create Admin User
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Go to your Supabase dashboard
+2. Navigate to **Authentication > Users**
+3. Click **Add User > Create new user**
+4. Enter your email and password
+5. Check "Auto Confirm User"
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4. Run the Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```shellscript
+npm install
+npm run dev
+```
+
+Visit `http://localhost:3000` and start creating!
+
+---
+
+## How to Use the Admin Panel
+
+1. Go to `/login` and sign in with your credentials
+2. You'll be redirected to the admin dashboard
+3. Click **"Crear Nuevo Post"** to create a new post
+4. Choose the type: Poem, Art, Video, or Text
+5. Fill in the title and content
+6. For videos: paste the YouTube URL and optionally add a custom thumbnail
+7. Click **"Publicar"** to make it live or **"Guardar como borrador"** to save for later
+
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **Styling**: Tailwind CSS
+- **Fonts**: Cormorant Garamond & Inter
+
+
+---
+
+## License
+
+Made with love. Use it however you wish.
+
+---
+
+*"Solo una chica que hace lo que hace. Desde psicología a poesía y arte digital... Y otras cositas. Que la ternura rebose del imaginario y nos ahogue con su dulzura."*
+
+— Aby's Abyss
