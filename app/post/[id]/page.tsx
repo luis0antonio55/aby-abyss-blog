@@ -35,6 +35,14 @@ function getYouTubeEmbedUrl(url: string): string | null {
   return null
 }
 
+function getDriveEmbedUrl(url: string): string | null {
+  const match = url.match(/(?:drive\.google\.com\/(?:file\/d\/|open\?id=)|drive\.google\.com\/drive\/folders\/)([a-zA-Z0-9_-]+)/)
+  if (match && match[1]) {
+    return `https://drive.google.com/file/d/${match[1]}/preview`
+  }
+  return null
+}
+
 export default function PostPage() {
   const params = useParams()
   const id = params.id as string
@@ -109,6 +117,7 @@ export default function PostPage() {
   })
 
   const youtubeEmbedUrl = post.media_url ? getYouTubeEmbedUrl(post.media_url) : null
+  const driveEmbedUrl = post.media_url ? getDriveEmbedUrl(post.media_url) : null
 
   return (
     <div className="relative min-h-screen">
@@ -150,6 +159,15 @@ export default function PostPage() {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="h-full w-full rounded-xl"
+                  />
+                </div>
+              ) : driveEmbedUrl ? (
+                <div className="aspect-video">
+                  <iframe
+                    src={driveEmbedUrl}
+                    title={post.title}
+                    className="h-full w-full rounded-xl"
+                    allowFullScreen
                   />
                 </div>
               ) : (

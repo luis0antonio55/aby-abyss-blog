@@ -38,6 +38,10 @@ export function PostCard({ post }: PostCardProps) {
     return match ? match[1] : null
   }
 
+  const isDriveUrl = (url: string) => {
+    return url.includes("drive.google.com")
+  }
+
   const getYouTubeThumbnail = (url: string) => {
     const videoId = getYouTubeId(url)
     if (videoId) {
@@ -78,7 +82,7 @@ export function PostCard({ post }: PostCardProps) {
                 alt={post.title}
                 className="h-full w-full object-cover transition-transform group-hover:scale-105"
               />
-            ) : post.media_url && !getYouTubeId(post.media_url) ? (
+            ) : post.media_url && !getYouTubeId(post.media_url) && !isDriveUrl(post.media_url) ? (
               <video
                 src={post.media_url}
                 className="h-full w-full object-cover"

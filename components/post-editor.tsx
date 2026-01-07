@@ -41,10 +41,16 @@ export function PostEditor({ post, userId, onSave, onCancel }: PostEditorProps) 
   const [error, setError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const thumbnailInputRef = useRef<HTMLInputElement>(null)
+  const MAX_FILE_SIZE = 15 * 1024 * 1024 // 15MB
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+
+    if (file.size > MAX_FILE_SIZE) {
+      setError("El archivo es demasiado grande. El límite es 15MB.")
+      return
+    }
 
     setIsUploading(true)
     setError(null)
@@ -73,6 +79,11 @@ export function PostEditor({ post, userId, onSave, onCancel }: PostEditorProps) 
   const handleThumbnailUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+
+    if (file.size > MAX_FILE_SIZE) {
+      setError("La imagen es demasiado grande. El límite es 15MB.")
+      return
+    }
 
     setIsUploadingThumbnail(true)
     setError(null)
