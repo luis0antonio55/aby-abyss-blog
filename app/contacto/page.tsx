@@ -12,6 +12,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Send, Mail, Youtube } from "lucide-react"
 
+const contactEmail = "babigailrc02@gmail.com"
+
 const socialLinks = [
   {
     name: "YouTube",
@@ -19,9 +21,15 @@ const socialLinks = [
     href: "https://www.youtube.com/@bereniceabigail1083",
     username: "@bereniceabigail1083",
   },
+  {
+    name: "Email",
+    icon: Mail,
+    href: `mailto:${contactEmail}`,
+    username: contactEmail,
+  },
 ]
 
-const contactEmail = "babigailrc02@gmail.com"
+
 
 export default function ContactoPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -30,9 +38,34 @@ export default function ContactoPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setIsSubmitting(false)
-    setSubmitted(true)
+
+    const form = e.target as HTMLFormElement
+    const formData = {
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+      } else {
+        alert('Hubo un error al enviar el mensaje. Por favor intenta de nuevo.')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Hubo un error al enviar el mensaje.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -69,17 +102,7 @@ export default function ContactoPage() {
         </Card>
 
         
-        <Card className="mb-4 border-primary/10 bg-card/80 backdrop-blur-sm sm:mb-6">
-          <CardContent className="py-4 sm:py-6">
-            <a
-              href={`mailto:${contactEmail}`}
-              className="flex items-center justify-center gap-2 text-foreground transition-colors hover:text-primary sm:gap-3"
-            >
-              <Mail className="h-5 w-5 sm:h-6 sm:w-6" />
-              <span className="text-sm sm:text-lg break-all">{contactEmail}</span>
-            </a>
-          </CardContent>
-        </Card>
+    
 
         
         <Card className="border-primary/10 bg-card/80 backdrop-blur-sm">
