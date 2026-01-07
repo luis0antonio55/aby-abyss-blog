@@ -32,12 +32,13 @@ export default function HomePage() {
         {/* Hero Section - responsive text sizes */}
         <section className="mb-10 text-center sm:mb-16">
           <h1 className="mb-3 text-3xl font-semibold tracking-tight text-foreground sm:mb-4 sm:text-5xl md:text-6xl text-balance">
-            Aby&apos;s Abyss
+            Una calida bienvenida (⁠◍⁠•⁠ᴗ⁠•⁠◍⁠)⁠❤
           </h1>
           
           <p className="mx-auto max-w-2xl text-base text-muted-foreground leading-relaxed sm:text-xl px-2">
             Una compilación de mi trabajo, pensamientos, arte y lo más recóndito de mi mente en este abismo digital.
           </p>
+          
         </section>
 
         {/* Posts Grid - responsive columns */}
