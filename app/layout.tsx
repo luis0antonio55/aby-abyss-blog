@@ -1,9 +1,15 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Cormorant_Garamond, Geist_Mono } from "next/font/google"
+import { Cormorant_Garamond, Geist_Mono, Patrick_Hand } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
+
+const patrickHand = Patrick_Hand({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-patrick-hand",
+})
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -46,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={`${cormorant.variable} ${geistMono.variable} font-sans antialiased`}>
+      <body className={`${patrickHand.variable} ${cormorant.variable} ${geistMono.variable} font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

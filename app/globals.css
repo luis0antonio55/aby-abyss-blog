@@ -75,9 +75,9 @@
 }
 
 @theme inline {
-  --font-sans: "Patrick Hand", cursive;
+  --font-sans: var(--font-patrick-hand), cursive;
   --font-serif: "Patrick Hand", cursive;
-  --font-mono: "Patrick Hand SC", cursive;
+  --font-mono: "Patrick Hand", cursive;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
