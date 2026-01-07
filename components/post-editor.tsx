@@ -209,7 +209,7 @@ export function PostEditor({ post, userId, onSave, onCancel }: PostEditorProps) 
                       ? "Escribe tu poema aquí..."
                       : "Escribe aquí..."
                   }
-                  className="min-h-[150px] border-primary/20 resize-none font-serif leading-relaxed sm:min-h-[200px]"
+                  className="min-h-[150px] border-primary/20 resize-none font-mono leading-relaxed sm:min-h-[200px]"
                   rows={type === "poem" ? 12 : 6}
                 />
               </div>

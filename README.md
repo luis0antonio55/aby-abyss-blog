@@ -98,7 +98,7 @@ Visit `http://localhost:3000` and start creating!
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **Styling**: Tailwind CSS
-- **Fonts**: Cormorant Garamond & Inter
+- **Fonts**: Patrick Hand, Patrick Hand SC
 
 
 ---
