@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Cormorant_Garamond, Geist_Mono, Patrick_Hand } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 const patrickHand = Patrick_Hand({
@@ -58,6 +59,7 @@ export default function RootLayout({
       >
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
